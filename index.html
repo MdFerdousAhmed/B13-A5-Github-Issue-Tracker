@@ -3,10 +3,59 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Github Issue Tracker</title>
+  <link rel="shortcut icon" href="./assets/github-logo.png" type="image/x-icon">
+
+  <!-- tailwind + daisy -->
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+  <!-- fonts  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Hind+Siliguri:wght@300;400;500;600;700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Manrope:wght@200..800&family=Outfit:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+  <style>
+    *{
+      font-family: "Geist", sans-serif;
+    }
+  </style>
+
 </head>
-<body>
-  <h1>I love you</h1>
-  <script src="script.js"></script>
+<body class="min-h-screen  bg-[#F8FAFC]  mx-auto">
+  
+  <div class="form pt-10 max-w-[520px] mx-auto">
+    <div class="card bg-[#FFFFFF] w-full max-w-sm shrink-0 shadow mx-auto rounded-2xl">
+      <div class="logo mx-auto grid justify-center items-center pt-8">
+        <img class="mx-auto" src="./assets/github-logo.png" alt="">
+        <h1 class="mx-auto text-2xl font-bold text-[#1F2937]">GitHub Issues Tracker</h1>
+        <p  class="mx-auto text-[#64748B]">Sign in to manage your issues</p>
+      </div>
+      <div class="card-body">
+        <fieldset class="fieldset  rounded-box w-xs  p-4 mx-auto">
+          <label class="label text-[#1F2937] font-semibold">Username</label>
+          <input id="input-username" type="username" class="input" placeholder="Enter Username" />
+          <p class="text-[#4A00FF]">Default: admin</p>
+
+          <label class="label text-[#1F2937] font-semibold">Password</label>
+          <input id="input-pin" type="password" class="input" placeholder="Password" />
+          <p class="text-[#4A00FF]">Default: admin123</p>
+
+          <button id="sign-btn" class="btn btn-active btn-primary mt-4 w-full">Sign In</button>
+        </fieldset>
+      </div>
+      <div class="flex items-center  pl-12 pr-12">
+        <div class="flex-grow h-px bg-gray-200"></div>
+        <span class="mx-4 text-sm text-black">OR</span>
+        <div class="flex-grow h-px bg-gray-200"></div>
+      </div>
+      <h2 class="grid justify-center items-center text-[#64748B] mt-6">Demo Credentials:</h2>
+      <div class="grid justify-center items-center bg-gray-100 p-6 m-12 rounded-lg">
+        <p>Username: <span class="text-[#64748B]">admin</span></p>
+        <p>Password: <span class="text-[#64748B]">admin123</span></p>
+      </div>
+    </div>
+  </div>
+  <script src="./script/sign.js"></script>
 </body>
 </html>
