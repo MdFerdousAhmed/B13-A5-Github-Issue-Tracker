@@ -32,16 +32,17 @@
         <span class="font-semibold text-[#1F2937] text-[24px]">GitHub Issues Tracker</span>
       </div>
       <div class="flex gap-2">
-        <input type="text" placeholder="Search issues..." class="input input-bordered w-24 md:w-auto" />
+        <input id="input-search" type="text" placeholder="Search issues..." class="input input-bordered w-24 md:w-auto" />
         <div class="">
           <div class="">
-            <button class="btn btn-active btn-primary">Search</button>
+            <button id="btn-search" class="btn btn-active btn-primary">Search</button>
           </div>
         </div>
       </div>
     </div>
   </header>
-  <section class="mt-15 w-[80%] mx-auto bg-[#F8FAFC]">
+
+  <section class="mt-15 w-11/12 mx-auto bg-[#F8FAFC]">
     <div class=" shadow-xl border-base-300 rounded-box w-full border bg-[#FFFFFF] p-4 rounded-md">
       <div class="flex space-x-4 p-4">
         <button id="allButton" data-button-type="all" class="btn btn-active bg-blue-600 text-white">
@@ -54,6 +55,42 @@
           Closed
        </button>
       </div>
+    </div>
+  </section>
+
+  <section class="mt-15 w-11/12 mx-auto bg-[#F8FAFC]">
+    <div class=" shadow-xl border-base-300 rounded-box w-full border bg-[#FFFFFF] p-4 rounded-md justify-between flex">
+      <div class="flex gap-4">
+        <div class="p-4 bg-blue-100 rounded-full">
+          <img src="./assets/Aperture.png" alt="">
+        </div>
+        <div>
+          <h2 id="all" class="font-bold text-2xl"> 0 <span>Issues</span></h2>
+          <p class="text-[#64748B]">Track and manage your project issues</p>
+        </div>
+      </div>
+      <div class=" flex gap-4 justify-center items-center">
+        <span>
+          <i class="fa-solid fa-circle text-green-500"></i>
+          Open
+        </span>
+        <span>
+          <i class="fa-solid fa-circle text-purple-500"></i>
+          Closed
+        </span>
+
+      </div>
+    
+    </div>
+  </section>
+
+  <section class=" bg-gray-100  w-11/12 mx-auto">
+    <div id="all-container" class="grid grid-cols-2 md:grid-cols-3  p-10 shadow-lg gap-4 max-w-full mx-auto rounded-lg">
+
+        
+    </div>
+    <div id="loadingSpinner" class="h-[60vh] flex hidden justify-center items-center">
+      <span class="loading loading-spinner loading-xl"></span>
     </div>
   </section>
   <script src="./script/script.js"></script>
