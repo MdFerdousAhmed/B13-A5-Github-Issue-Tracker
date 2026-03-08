@@ -122,3 +122,19 @@ function displayAll(cards) {
   });
 }
 allCard()
+
+document.getElementById("btn-search").addEventListener("click",()=>{
+  const input = document.getElementById("input-search");
+  const searchValue = input.value.trim().toLowerCase();
+  console.log(searchValue);
+
+  fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues")
+  .then(res => res.json())
+  .then(data => {
+    const allTitle = data.data;
+    console.log(allTitle);
+    const filterTitle = allTitle.filter(title=> title.title.toLowerCase().includes(searchValue));
+    displayAll(filterTitle);
+    
+  })
+})
