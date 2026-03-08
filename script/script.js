@@ -1,9 +1,9 @@
-
-document.addEventListener('DOMContentLoaded', () => {
+const count = document.getElementById("all");
+document.addEventListener('DOMContentLoaded', async () => {
   const buttons = document.querySelectorAll('button[data-button-type]');
 
   buttons.forEach(button => {
-    button.addEventListener('click', () => {
+    button.addEventListener('click', async () => {
 
       buttons.forEach(btn => {
         btn.classList.remove('active-button');
@@ -17,9 +17,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const buttonType = button.dataset.buttonType;
       console.log(`Button "${buttonType}" was clicked!`);
+      const data = await allCard()
+      console.log(data);
+      if (buttonType === "all") {
+        displayAll(data)
+      } else if (buttonType === "open") {
+        const filteredData = data.filter(lesson => lesson.status === "open");
+        displayAll(filteredData)
+      }
+      else {
+        const filteredData = data.filter(lesson => lesson.status === "closed");
+        displayAll(filteredData)
+      }
+
     });
   });
 });
+
 
 const allContainer = document.getElementById("all-container");
 const loadingSpinner = document.getElementById("loadingSpinner");
@@ -27,16 +41,16 @@ const modal = document.getElementById("card-modal");
 
 const all = document.getElementById("all");
 
-function showLoading (){
+function showLoading() {
   loadingSpinner.classList.remove("hidden");
   allContainer.innerHTML = "";
 }
 
-function hideLoading (){
+function hideLoading() {
   loadingSpinner.classList.add("hidden");
 }
 
-async function allCard(){
+async function allCard() {
   showLoading();
 
   const res = await fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues");
@@ -51,12 +65,14 @@ async function allCard(){
   all.innerHTML = `${total} <span>Issues</span>`;
 
   displayAll(cards);
+  return cards
 }
 
-function displayAll(cards){
+function displayAll(cards) {
+  count.innerText = cards.length;
   console.log(cards);
-
-  cards.forEach(card =>{
+  allContainer.innerHTML = "";
+  cards.forEach(card => {
     const section = document.createElement("div");
     section.className = "card bg-white shadow-sm";
 
@@ -105,5 +121,4 @@ function displayAll(cards){
     allContainer.appendChild(section);
   });
 }
-
-allCard();
+allCard()
