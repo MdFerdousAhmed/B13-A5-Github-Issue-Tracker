@@ -68,6 +68,7 @@ async function allCard() {
   return cards
 }
 
+
 function displayAll(cards) {
   count.innerText = cards.length;
   console.log(cards);
@@ -75,17 +76,25 @@ function displayAll(cards) {
   cards.forEach(card => {
     const section = document.createElement("div");
     section.className = "card bg-white shadow-sm";
-
+    let statusBorder = ""
+    if(card.status == "open"){
+      statusBorder = "border-green-500"
+    }
+    else{
+      statusBorder = "border-purple-500"
+    }
+    
+    let iconBtn = (card.status == "open") ? "./assets/Open-Status.png":"./assets/Closed- Status .png"
     section.innerHTML = `
-      <div class="p-4 border-t-2 border-green-500 rounded-md">
+      <div class="p-4 border-t-2 ${statusBorder} rounded-md " onclick="loadCardDetail(${card.id})">
       
         <div class="flex justify-between">
           <div>
-            <img class="px-2 py-2" src="./assets/Open-Status.png" alt="">
+            <img class="px-2 py-2" src="${iconBtn}" alt="">
           </div>
 
           <div>
-            <button class="btn btn-soft btn-error px-7 py-2 rounded-full font-semibold">
+            <button  class="btn btn-soft btn-error px-7 py-2 rounded-full font-semibold">
               ${card.priority}
             </button>
           </div>
@@ -101,7 +110,7 @@ function displayAll(cards) {
             </button>
 
             <button class="btn btn-soft btn-warning rounded-full">
-              <i class="fa-regular fa-life-ring"></i> ${card.labels[1] || ""}
+              <i class="fa-regular fa-life-ring"></i> ${card.labels[1] ? card.labels[1] : "No Issue here" || ""}
             </button>
           </div>
         </div>
@@ -138,3 +147,53 @@ document.getElementById("btn-search").addEventListener("click",()=>{
     
   })
 })
+
+const loadCardDetail =(id)=>{
+  console.log(id);
+  const modal = document.querySelector("#modal")
+  
+  
+  const modalCard = document.getElementById("card_modal")
+  const url = `https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`
+  console.log(url);
+  fetch(url)
+  .then(res => res.json())
+  .then((data) => {
+    const issue = data.data
+    modal.innerHTML = `
+       <div class="p-4 border-t-2 border-green-500 rounded-md space-y-4">
+          <div class="flex justify-between">
+            <div>
+            <img class="px-2 py-2 " src="./assets/Open-Status.png" alt="">
+            </div>
+            <div>
+              <button class="btn btn-soft btn-error px-7 py-2 rounded-full font-semibold">${issue.priority}</button>
+            </div>
+          </div>
+          <div>
+            <button class="btn btn-active btn-success text-white rounded-full">${issue.status}</button>
+            <span><i class="fa-solid fa-circle text-gray-400"></i> Opened by Ferdous Ahmed</span>
+            <span><i class="fa-solid fa-circle text-gray-400"></i> 22/02/2026</span>
+          </div>
+          <div>
+            <h2 class="font-semibold">${issue.title}</h2>
+            <p class="text-[#64748B]">${issue.description}</p>
+            <div class="flex gap-2">
+              <button class="btn btn-soft btn-secondary rounded-full"><i class="fa-solid fa-bug"></i>${issue.labels[0] || ""}</button>
+              <button class="btn btn-soft btn-warning rounded-full"><i class="fa-regular fa-life-ring"></i> ${issue.labels[1] ? issue.labels[1] : "No Issue here" || ""}</button>
+            
+            </div>
+          </div>
+          <div class="w-full mt-4">
+            <div class="flex-grow h-px bg-gray-300 w-full"></div>
+          </div>
+          <div class="space-y-2 mt-2">
+            <p class="text-[#64748B]">${issue.assignee ? issue.assignee : "No Data Here"}</p>
+            <p class="text-[#64748B]">${issue.updatedAt}</p>
+          </div>
+        </div>`
+    modalCard.showModal()
+  }
+  
+  )
+}
